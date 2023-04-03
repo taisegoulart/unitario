@@ -5,6 +5,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import dev.ifrs.entity.User;
@@ -33,5 +34,22 @@ public class UnitarioTest { //sufixo teste é importante para o Maven achar os c
         //para rodar o teste pelo terminal digitar "mvn test" no terminal, a partir do projeto inteiro
 
     }
+
+    @Test
+    public void testCreateUserEmailFailed(){
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            UserUC uc = new UserUC();  
+            User user = uc.createUser("null", "123456");
+        });
+    }
+
+    @Test
+    public void testCreateUserPasswordFailed(){
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            UserUC uc = new UserUC();  
+            User user = uc.createUser("rodrigo@test.com", "");
+        });
+    }
+
 
 }
